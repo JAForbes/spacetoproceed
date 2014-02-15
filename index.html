@@ -1,0 +1,243 @@
+<html>
+<head>
+  <title>LD28</title>
+  <style>
+
+    @font-face {
+      font-family: pixel_font;
+      src: url('./font/pixel_font.ttf');
+    }
+
+    * {
+      font-family: pixel_font;
+    }
+    img{
+      display:none;
+    }
+    canvas, img {
+      image-rendering: optimizeSpeed;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: optimize-contrast;
+      -ms-interpolation-mode: nearest-neighbor;
+      border: 5px solid #ddd;
+      /*background-color: #04a1ed;*/
+      background-color: #BBB;
+    }
+    #status{
+     border: 5px solid #ddd;
+     width:400px;
+    }
+    #hint{
+      position:absolute;
+      top:0;
+      width:400px;
+      text-align:center;
+      color:#FFF;
+    }
+    #credits{
+      
+      max-width:400px;
+      text-align:center;
+    }
+    .level{
+      display:none;
+    }
+    .key{
+      display:none;
+    }
+  </style>
+</head>
+<body>
+
+  <img id='player' src='img/player.png'/>
+  <img id='player_drown' src='img/player_drown.png'/>
+  <img id='podium' src='img/podium.png'/>
+  <img id='fuel' src='img/fuel.png'/>
+  <img id='exit' src='img/exit.png'/>
+  <img id='gem' src='img/gem.png'/>
+
+  <audio id = 'snd_drown' src="snd/drown.wav" type="audio/wav"></audio>
+  <audio id = 'snd_exitReady' src="snd/exitReady.wav" type="audio/wav"></audio>
+  <audio id = 'snd_fuelPickup' src="snd/fuelPickup.wav" type="audio/wav"></audio>
+  <audio id = 'snd_gemPickup' src="snd/gemPickup.wav" type="audio/wav"></audio> 
+  <audio id = 'snd_nex`tLevel' src="snd/nextLevel.wav" type="audio/wav"></audio>
+  <audio id = 'snd_rotateTarget' src="snd/rotateTarget.wav" type="audio/wav"></audio>
+  <audio id = 'snd_rotateTarget2' src="snd/rotateTarget2.wav" type="audio/wav"></audio>
+  <audio id = 'snd_teleport' src="snd/teleport.wav" type="audio/wav"></audio>
+  <audio id = 'snd_teleport2' src="snd/teleport2.wav" type="audio/wav"></audio>
+  <audio id = 'snd_explosion' src="snd/explosion.wav" type="audio/wav"></audio>
+
+  <div class='key'>
+    start s
+    podium p
+    exit e
+    gem g
+    fuel f
+  </div>
+  <div class='level'>
+
+
+
+
+
+  ps                         pe 
+  </div>
+  <div class='level' text='This facility was hard enough to navigate, before the overload! <br><br>[Arrows] to Aim'>
+  pe
+
+                 g
+
+  ps                         p 
+  </div>
+  <div class='level' text='This place is crawling with guards! I must be brave!'>
+  ps             pf    p     pf  
+  
+
+
+                 pg    f     pg
+
+                             
+                             pe
+  </div>
+  <div class='level' text='"Help us!", your former captors cry.<br>"Do not leave us behind!  We have plans for you!"'>
+                 g           ps  
+  
+
+
+                 pg    f     pg
+
+                             
+                             pe
+  </div>
+  <div class='level' text='"What use is escape - to a machine.  You were designed <i> with only one</i> purpose.  What else is there?!"'>
+  
+  p                          ps
+
+                       f
+
+  g             pg
+
+
+
+                         f
+  p                          pe
+  </div>
+  <div class='level' text='I see a man, he is wounded'>
+  ps
+  
+
+
+
+
+
+
+
+                             pe
+  </div>
+  <div class='level' text='Father?  Are you okay?'>
+  ps
+  
+
+
+
+
+
+
+  
+                             pe
+  </div>
+  <div class='level' text='Father?'>
+                 p               
+           g   f    f
+             g           
+           g
+     ps                      pe
+  </div>
+  <div class='level' text='My son'>
+                 p               
+
+                        
+           
+     ps                      pe
+  </div>
+  <div class='level' text='You have done well, my son'>
+                 p               
+
+                        
+           
+     ps                      pe
+  </div>
+  <div class='level' text='What do you mean? I have done well? What is going on?'>
+                 p               
+
+                        
+           
+     ps                      pe
+  </div>
+  <div class='level' text='It is all okay, everything is as it should be.  That was your best run yet!'>
+                 p               
+
+                        
+           
+     ps                      pe
+  </div>
+  <div class='level' text='Run?! What are you talking about?! Father?!'>
+                 p               
+
+                        
+           
+     ps                      pe
+  </div>
+  <div class='level' text='*Muttering*..."Re-run the simulation... In reality, you only get one chance.<br><br><br>So let us be sure we are prepared."'>
+                 p               
+
+                        
+           
+     ps                      pe
+  </div>
+  <div class='level' text='Simulation completed in 1 min 36 secs.'>
+                 p               
+
+                        
+           
+     ps                      pe
+  </div>
+
+
+  <canvas id='can' width='400px' height='300px'></canvas>
+  
+  <div id='status'>
+    <p id='fuel'></p>
+    <p id='gems'></p>
+
+  </div>
+  <div id='hint'>
+    <p>[Up] to teleport.</p>
+  </div>
+
+  <div id='credits'>
+      <h1>Space to Proceed</h1>
+      <p>Made by <a href='https://twitter.com/james_a_forbes'>James Forbes</a> in 48 hours</p><p>for <a href='http://www.ludumdare.com/compo/ludum-dare-28/?action=rate&uid=6228'>Ludum Dare 28</a></p>
+  </div>
+
+
+  <script src='lib/jquery-2.0.3.min.js'></script>
+  <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src='lib/underscore-min.js'></script>
+  <script src='src/util.js'></script>
+  <script src='src/frame.js'></script>
+  <!--<script src='src/levels.js'></script>-->
+  <script src='src/app.js'></script>
+  <script>
+    var fuelStatus = $('#status #fuel');
+    var hintText = $('#hint p')
+    var updateGUI = function(){
+      fuelStatus.html('Fuel: '+models.player.fuel);
+      hintText.html(models.level.level.text);
+    };
+    updateGUI();
+    setInterval(updateGUI,100);
+  </script>
+</body>
+</html>

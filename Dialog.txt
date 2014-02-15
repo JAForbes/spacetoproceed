@@ -1,0 +1,192 @@
+Beginning
+
+  The theme is You only get one.
+
+  My immediate thought is "You only get one bullet", which is kind of sad except.
+
+  I've got an idea for a game where you are your projectile.  You fire one shot and when the shot reaches the target
+  you teleport to that spot.
+
+  And until that bullet reaches the spot you have no more ammunition, unless you teleport to the projectiles current position.
+
+  I don't want to fall back on 2 player, so I will need to write an AI.
+
+  If I can get an AI up and running early, then I can tweak gameplay more easily as I go along.
+
+  Going to get some water.
+
+  However, shooting kind of bores me.
+
+  I like the idea of a teleporting mechanic based on a projectile timing system.
+
+  Maybe it is not a shooter but a top down mystical exploration game.
+
+  You use your teleportation to navigate jump puzzles.
+
+  That could have a very clean but interesting art style.
+
+  The projectile could be a magical ball that you throw, and "you only get one".  If you throw it too far/off screen/into the abyss, you 
+
+
+  I'll get a prototype up and running.
+
+  But first git.
+
+Technical Issues
+
+  Ditched Coffeescript because of "this" issues.
+  Ditched DOM manipulation, because of desire to use art assets, and lack of experience might slow me down for no benefit. (DOM would be slower than canvas)
+
+Art Phase 1
+
+  Had the idea that the game would be set in a "temple" and that the idea of the game was to explore it with the teleportation
+  ability.
+
+  Ended up drawing a wierd horse woman lady in bright purple.  Then got rid of the 2nd pair of legs.  Discovered a cool leaning style.
+  After turning onion skin on and off again, I could see a potential art SFX for doing teleportation
+
+  Woman can always be leaning, ready to go.  Turning Head.  4 Directions.  Then she lunges further and teleports and only slightly relaxs in the new spot.
+
+  So this means no walking at all.  Which I like, focus on teleportation.
+
+  Now to get something into the """game?"""
+
+Telporting... What next?
+
+  A creature that can teleport.
+  What would they desire?
+
+  Without objects around them, there is no way for them to know their place in the world.
+  There is no way for them to know where they were, or where they are going.
+
+  There are stones in the wild.  You can venture into the nothingness.  And carry them, and place them.
+  And make a home.
+
+  Others of your kind, do not understand the importance you place on a home.
+
+  Without the stones, you have no sense of place.  You are lost.  There is no map.
+
+    Teleport onto stones to carry them.  Teleport again to drop them in place.
+    Teleport through invaders to protect your home.
+
+Teleporting... pt2
+
+  You start the game.  You are surrounded by nothing but white.
+
+    You can teleport, but it is hard to tell that that is what you are doing, until you leave the screen in any direction.
+
+    The screens around you have stones, the screen to the top left has one, the screen to the bottom right has 7.
+
+    You discover, 
+
+      that you can pick up a stone if you land near it.  
+      And when you land again, the stone will come with you.
+
+    You may move rocks around, you may venture out.  To discover a variety of objects.  Markers on your journey.
+    But where are you going?
+
+    You make your move.  And venture into the unknown. / You return home, to the home you have made.
+
+    You have amassed many coloured objects, but what is it for?  What is the purpose or goal of this exercise?
+
+    Where is the conflict?  Where is the tension?
+
+      You discover, 
+
+        that dropping a white stone clears the surrounding area.
+        And dropping a coloured stone, colours the surrounding area.
+
+        You discover, 
+
+          that dropping a white stone, destroys it.
+          that amassing all seven colours creates a white stone.
+
+            that white stones are therefore, more valuable than other stones.
+
+
+
+Level Layout?
+
+                              [_]
+                               |
+                               |
+                               |
+              [O]-------------[O]
+               |
+               |
+               |
+  [x]---------[O]
+
+
+
+  [x]---------[o]---[o]---[o]---[o]---[_]
+
+
+
+  [x]---------[o]---[o]---[o]---[o]---[_]
+
+
+
+  You teleport you lose one teleport.
+
+  You collect teleports when you move through them, or land on them.
+
+  When you collect all the stones.  The portal opens to the next level.
+
+
+  There are two types of items.  Teleport fuel, and gems.
+
+  One jump uses one fuel.  You need to collect all the gems to open the door.
+  Which takes you to the next level.  A kin to Jetpack?
+
+
+  A gem looks like *, fuel looks like o.
+
+  You can collect multiple fuel items by warping through them.
+
+
+  [ ] = podium
+   x = start
+   o = fuel
+   * = gem
+
+
+  Level 01
+  [x]-------[o]----[o]-----[o]
+
+
+
+            [*]     o      [*] 
+
+
+                           [_]
+
+New Rules
+
+  - You have teleport fuel.  One teleport uses one fuel.
+  - You collect all the gems to open the door, to finish a level.
+  - If your teleball leaves the screen it wraps around back into you.
+  - You cannot move without teleporting.
+  - You can restart the level with the R key. //Detect when stranded, prompt player to restart (like osmos)
+  - You always land in the centre of an island, even if your teleball was on the edge of it.
+  - The door opens when there are no more gems.
+  - Use Jquery + HTML for Menus, pause the game if the $('.menu') is visible.
+  - Need to be able to reset object states easily.
+
+Visuals
+
+  - Islands could look like this.  Rippling square waves.
+  http://31.media.tumblr.com/74d9695b43fbbc683017683edaf821f9/tumblr_mvim51ElCE1qa6q9uo1_500.png
+
+Theme:
+ You only get one teleport.
+ So it is easy to become stranded if you don't plan your route.
+
+ The game could be called Stranded? 
+
+
+Reset state.
+
+In the model and views initialize function, they can clone themselves and store it as a backup. 
+
+If the art assets aren't static, can use frame.js
